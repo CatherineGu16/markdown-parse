@@ -16,10 +16,10 @@ public class MarkdownParse {
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
             // make sure it is a valid link so nothign between the [ and (
-            if (nextCloseBracket + 1 != openParen) {
+            if (nextOpenBracket == -1 || nextCloseBracket == -1 || openParen == -1 || closeParen == -1) {
                 break;
             }
-            if (nextOpenBracket == -1 || nextCloseBracket == -1 || openParen == -1 || closeParen == -1) {
+            if (nextCloseBracket != openParen - 1) {
                 break;
             }
             if (markdown.indexOf("!") != nextOpenBracket - 1) {
