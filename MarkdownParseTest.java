@@ -2,6 +2,7 @@
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.*;
 
@@ -20,7 +21,7 @@ public class MarkdownParseTest {
     }
 
     @Test
-    public void testGetLinks() throws IOException{
+    public void testTestFile1() throws IOException{
         Path fileName = Path.of("test-file.md");
 	    String contents = Files.readString(fileName);
         ArrayList<String> result = MarkdownParse.getLinks(contents);
@@ -28,5 +29,32 @@ public class MarkdownParseTest {
         assertEquals(result.get(1), "some-page.html");
     }
 
-    
+    @Test
+    public void testTestFile2() throws IOException{
+        Path fileName = Path.of("test-file2.md");
+	    String contents = Files.readString(fileName);
+        ArrayList<String> result = MarkdownParse.getLinks(contents);
+        List<String> expected = List.of("https://something2.com", "https://something.com", "some-page.html", "youtube.com", "example.com");
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void testTestFile3() throws IOException{
+        Path fileName = Path.of("test-file3.md");
+	    String contents = Files.readString(fileName);
+        ArrayList<String> result = MarkdownParse.getLinks(contents);
+        List<String> expected = List.of("hello.com", "thisiscool.html");
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void testTestFile4() throws IOException{
+        Path fileName = Path.of("test-file4.md");
+	    String contents = Files.readString(fileName);
+        ArrayList<String> result = MarkdownParse.getLinks(contents);
+        List<String> expected = new ArrayList<>();
+        assertEquals(result, expected);
+    }
+
+
 }
