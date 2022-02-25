@@ -31,21 +31,16 @@ public class MarkdownParse {
             int nextCloseBracket = markdown.indexOf("]", nextOpenBracket);
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
-
-            // If the link is an image file, continue
-            if(nextOpenBracket >= 1 && markdown.charAt(nextOpenBracket-1) == '!') {
-                currentIndex = closeParen + 1;
-                continue;
+            // make sure it is a valid link so nothign between the [ and (
+            if (nextOpenBracket == -1 || nextCloseBracket == -1 || openParen == -1 || closeParen == -1) {
+                break;
             }
-
-            // If the link is formatted incorrectly, continue
-            if(openParen != nextCloseBracket + 1) {
-                currentIndex = nextOpenBracket + 1;
-                continue;
-            }
-
-            toReturn.add(markdown.substring(openParen + 1, closeParen));
+            if (nextCloseBracket == openParen - 1 
+                && markdown.indexOf("!") != nextOpenBracket - 1) {
+                    toReturn.add(markdown.substring(openParen + 1, closeParen));
+           }
             currentIndex = closeParen + 1;
+            System.out.println();
         }
         
         return toReturn;
